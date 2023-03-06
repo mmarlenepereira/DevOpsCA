@@ -8,14 +8,8 @@ workflows:
           filters:
             branches:
               only:
-                - main
-      - deploy:
-          filters:
-            branches:
-              only:
-                - main
-          requires:
-            - build
+                - /.*$/
+
 
 
 # Define the jobs we want to run for this project

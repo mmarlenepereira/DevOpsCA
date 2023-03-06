@@ -9,18 +9,10 @@ workflows:
             branches:
               only:
                 - main
-      - deploy:
-          filters:
-            branches:
-              only:
-                - main
-          requires:
-            - build
 
 
 
-
-# Define the jobs we want to run for this project
+# This part specifies what happens in our build job, we specify where on our machine will be our working directory from where we are performing this continuous integration.
 jobs:
   build:
     working_directory: ~/SimpleApplication

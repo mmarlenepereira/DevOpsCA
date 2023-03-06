@@ -1,0 +1,34 @@
+version: 2.1
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - main
+
+
+
+# This part specifies what happens in our build job, we specify where on our machine will be our working directory from where we are performing this continuous integration.
+jobs:
+  build:
+    working_directory: ~/SimpleApplication
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@8.1.4'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
